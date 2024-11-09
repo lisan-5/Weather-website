@@ -27,10 +27,11 @@ Installation
 1. Clone the repository:
 git clone https://github.com/lisan-5/Weather-website.git
 
-3. Navigate to the project directory:
+2. Navigate to the project directory:
 cd Weather-website
 
 3.Open index.html in your web browser to view the website
+
 Usage
 1.Enter a city name in the search input to get weather information.
 
