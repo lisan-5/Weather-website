@@ -33,6 +33,7 @@ cd Weather-website
 3.Open index.html in your web browser to view the website
 
 Usage
+
 1.Enter a city name in the search input to get weather information.
 
 2.Click the search button or press Enter to fetch and display the weather data.
