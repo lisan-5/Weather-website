@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- IMPORT GOOGLE ICONS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+
+    <div class="logo-container">
+        <div class="logo" id="logo-text">Ligator</div>
+    </div>
+
+    <main class="main-container">
+        
+        <header class="input-container">
+            <!-- Language Selector -->
+            <select id="language-selector" class="language-selector">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="am">አማርኛ</option>
+                <option value="ti">ትግርኛ</option>
+                <option value="om">Afaan Oromoo</option>
+            </select>
+            <div class="input-wrapper">
+                <input class="city-input" id="city-input" placeholder="Search City" type="text">
+                <button class="search-btn">
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+                <button class="geolocation-btn">
+                    <span class="material-symbols-outlined">my_location</span>
+                </button>
+            </div>
+            <div class="suggestions-container" id="suggestions-container">
+                <!-- ...existing code... -->
+            </div>
+        </header>
+
+        <section class="weather-info" style="display: none;">
+            <div class="location-date-container">
+                <div class="location">
+                    <span class="material-symbols-outlined location-icon">
+                        location_on
+                    </span>
+                    <h4 class="country-txt" id="country-txt">Jakarta</h4>
+                </div>
+                <h5 class="current-date-txt regular-txt" id="current-date-txt">Wed, 07 Aug</h5>
+            </div>
+
+            <div class="weather-summary-container">
+                <img src="assets/weather/clouds.svg" class="weather-summary-img">
+                <div class="weather-summary-info">
+                    <h1 class="temp-txt" id="temp-txt">29 °C</h1>
+                    <h3 class="condition-txt regular-txt" id="condition-txt">Clouds</h3>
+                    <label class="switch">
+                        <input type="checkbox" class="unit-toggle-checkbox">
+                        <span class="slider round">
+                            <span class="unit-text">C°</span>
+                            <span class="unit-text">F°</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="weather-conditions-container">
+                <div class="condition-item">
+                    <span class="material-symbols-outlined">
+                        water_drop
+                    </span>
+                    <div class="condition-info">
+                        <h5 class="regular-txt" id="humidity-label">Humidity</h5>
+                        <h5 class="humidity-value-txt">55%</h5>
+                    </div>
+                </div>
+
+                <div class="condition-item">
+                    <span class="material-symbols-outlined">
+                        air
+                    </span>
+                    <div class="condition-info">
+                        <h5 class="regular-txt" id="wind-speed-label">Wind Speed</h5>
+                        <h5 class="wind-value-txt">2 M/s</h5>
+                    </div>
+                </div>
+
+                <div class="condition-item">
+                    <span class="material-symbols-outlined">
+                        speed
+                    </span>
+                    <div class="condition-info">
+                        <h5 class="regular-txt" id="pressure-label">Pressure</h5>
+                        <h5 class="pressure-value-txt">1013 hPa</h5>
+                    </div>
+                </div>
+
+                <div class="condition-item">
+                    <span class="material-symbols-outlined">
+                        visibility
+                    </span>
+                    <div class="condition-info">
+                        <h5 class="regular-txt" id="visibility-label">Visibility</h5>
+                        <h5 class="visibility-value-txt">10 km</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="forecast-items-container">
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">05 Aug</h5>
+                    <img src="assets/weather/thunderstorm.svg" class="forecast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">05 Aug</h5>
+                    <img src="assets/weather/thunderstorm.svg" class="forecast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">05 Aug</h5>
+                    <img src="assets/weather/thunderstorm.svg" class="forecast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+                <div class="forecast-item">
+                    <h5 class="forecast-item-date regular-txt">05 Aug</h5>
+                    <img src="assets/weather/thunderstorm.svg" class="forecast-item-img">
+                    <h5 class="forecast-item-temp">29 °C</h5>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-city section-message">
+            <img src="assets/message/search-city.png">
+            <div>
+                <h1 id="search-title">Search Anywhere</h1>
+                <h4 class="regular-txt" id="search-description">
+                    Find out the weather condition of cities around the world.
+                </h4>
+            </div>
+        </section>
+
+        <section class="not-found section-message" style="display: none;">
+            <img src="assets/message/not-found.png">
+            <div>
+                <h1 id="not-found-title">Not Found</h1>
+                <h4 class="regular-txt" id="not-found-description">
+                    The location you are looking for cannot be found, sorry.
+                </h4>
+            </div>
+        </section>
+        
+        <div class="loading-spinner" id="loading-spinner" style="display: none;"></div>
+        
+    </main>
+    <div class="footer" id="footer-text">
+        © 2024 Lisanegebriel Abay Kebedew. All Rights Reserved.
+    </div>
+</body>
+</html>

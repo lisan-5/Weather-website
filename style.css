@@ -1,0 +1,694 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap'); /* Add this line to import the cursive font */
+/* Import font that supports Amharic */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&display=swap');
+/* Import fonts that support Tigrinya and Afan Oromoo */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&display=swap'); /* For Tigrinya */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap'); /* For Afan Oromoo */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    color: #1E90FF; /* Changed from #FFD700 to DodgerBlue */
+    font-weight: 600;
+}
+
+body {
+    background: linear-gradient(to right, #1E90FF, #000000); /* Changed gradient colors */
+    /* background: url('assets/images/bg.jpg') no-repeat center center fixed; */ /* Remove background image */
+    background-size: cover; /* Ensure the gradient covers the entire background */
+    width: 100%;
+    height: 100vh; /* Use vh instead of dvh for better compatibility */
+    background-position: center;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    flex-direction: column; /* Add this line to stack logo and main container vertically */
+    padding-top: 0; /* Remove top padding */
+    overflow: hidden; /* Prevent scrolling */
+    color: #1E90FF; /* Changed text color to blue */
+    font-family: "Poppins", 'Noto Sans Ethiopic', 'Noto Sans', sans-serif;
+}
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh; /* Use vh instead of dvh for better compatibility */
+    background: rgba(0, 0, 0, 0.5); /* Darken the background for better contrast */
+    backdrop-filter: blur(15px);
+}
+
+/* UTILITIES */
+.regular-txt {
+    font-weight: 400;
+}
+
+.country-txt {
+    cursor: pointer; /* Indicate that the text is clickable */
+    transition: color 0.3s ease, text-decoration 0.3s ease; /* Smooth color and decoration transition */
+}
+.country-txt:hover {
+    color: #FFD700; /* Change text color on hover */
+    text-decoration: underline; /* Underline text on hover */
+}
+/* END UTILITIES */
+
+.main-container {
+    width: 600px; /* Increased width to make the box horizontally longer */
+    height: auto; /* Adjust height to fit content */
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.9); /* Darker shade for main container */
+    border-radius: 12px;
+    backdrop-filter: blur(20px); /* Increase blur effect */
+    padding: 20px;
+    color: #1E90FF; /* Changed from #000000 to DodgerBlue for better readability */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Add deeper shadow for depth */
+    animation: fadeIn 1s ease-in-out; /* Add fade-in animation */
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        width: 100%; /* Set width to 100% */
+        height: auto; /* Adjust height to fit content */
+        padding: 10px; /* Reduce padding */
+    }
+
+    .weather-summary-container {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center align items */
+        text-align: center; /* Center align text */
+    }
+
+    .weather-summary-info {
+        text-align: center; /* Center align text */
+    }
+
+    .forecast-items-container {
+        gap: 10px; /* Reduce gap between forecast items */
+    }
+
+    .forecast-item {
+        min-width: 60px; /* Adjust minimum width for forecast items */
+    }
+
+    .logo {
+        font-size: 3.2rem; /* Increased from 3rem to 3.2rem */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+        width: 100%; /* Set width to 100% */
+        max-height: 80vh; /* Further limit the height to 80% of the viewport height */
+        overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
+        padding: 5px; /* Further reduce padding */
+    }
+
+    .weather-summary-container {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center align items */
+        text-align: center; /* Center align text */
+    }
+
+    .weather-summary-info {
+        text-align: center; /* Center align text */
+    }
+
+    .forecast-items-container {
+        gap: 8px; /* Reduce gap between forecast items */
+    }
+
+    .forecast-item {
+        min-width: 50px; /* Adjust minimum width for forecast items */
+    }
+
+    .logo {
+        font-size: 2.7rem; /* Increased from 2.5rem to 2.7rem */
+    }
+
+    .suggestion-txt {
+        display: block;
+    }
+}
+
+/* INPUT CONTAINER */
+.input-container {
+    position: relative;
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column; /* Stack language selector above input */
+    align-items: center;
+}
+
+.language-selector {
+    width: 200px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #1E90FF;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #1E90FF;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.city-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #1E90FF;
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background: #000000; /* Change input background to black */
+    color: #1E90FF; /* Changed text color to DodgerBlue */
+    outline: none;
+    font-weight: 500;
+    transition: 0.25s border, 0.25s transform; /* Add transform transition */
+    padding-right: 80px; /* Space for buttons */
+    border-top-left-radius: 10px; /* Add this line */
+    border-top-right-radius: 10px; /* Add this line */
+    border-bottom-left-radius: 10px; /* Add this line */
+    border-bottom-right-radius: 10px; /* Add this line */
+    border-color: #1E90FF; /* Changed border color to DodgerBlue */
+}
+.city-input:focus {
+    border: 3px solid transparent; /* Change border color to transparent */
+}
+.city-input::placeholder {
+    color: rgba(255, 215, 0, 0.5); /* Change placeholder color to semi-transparent gold */
+}
+.city-input:hover {
+    transform: scale(1.05); /* Enlarge the typing box on hover */
+}
+
+/* Enhance search and geolocation buttons */
+.search-btn, .geolocation-btn {
+    background-color: #1E90FF; /* Change background color to blue */
+    padding: 10px 15px;
+    border-radius: 50%; /* Make buttons circular */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* Ensure buttons are above other elements */
+}
+
+.search-btn .material-symbols-outlined,
+.geolocation-btn .material-symbols-outlined {
+    color: #FFFFFF; /* Change icon color to white */
+    font-size: 24px; /* Adjust icon size */
+}
+
+.search-btn, .geolocation-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 35px; /* Set a fixed width for consistency */
+    height: 35px; /* Set a fixed height for consistency */
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Ensure buttons are circular */
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Set icon color to white */
+.search-btn .material-symbols-outlined,
+.geolocation-btn .material-symbols-outlined {
+    color: #FFFFFF; /* White color */
+}
+
+.search-btn {
+    right: 40px; /* Position search button 40px from the right */
+    background-color: #1E90FF; /* Change to blue */
+}
+.search-btn span {
+    color: #FFFFFF; /* Change icon color to white */
+}
+
+.geolocation-btn {
+    right: 0; /* Position geolocation button at the far right */
+    background-color: #1E90FF; /* Change to blue */
+    z-index: 2; /* Ensure it is above other elements */
+}
+.geolocation-btn span {
+    color: #FFFFFF; /* Change icon color to white */
+}
+
+.geolocation-btn::after {
+    content: "Geolocation";
+    position: absolute;
+    bottom: 100%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.geolocation-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* END INPUT CONTAINER */
+
+/* Remove suggestion styles */
+/*
+.suggestions {
+    /* ...existing styles... */
+}
+.suggestion-txt {
+    /* ...existing styles... */
+}
+*/
+
+/* Suggestions Dropdown */
+.suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* SECTION: WEATHER INFO */
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.location-date-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.location-icon {
+    cursor: pointer; /* Indicate that the icon is clickable */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+.location-icon:hover {
+    color: #FFD700; /* Change icon color on hover */
+}
+
+.weather-summary-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 215, 0, 0.1); /* Add gold-tinted background color */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    transition: background 0.3s ease; /* Add transition for smooth effects */
+    color: #000000; /* Change text color to black for better readability */
+}
+.weather-summary-container:hover {
+    background: rgba(255, 215, 0, 0.2); /* Lighten background on hover with gold tint */
+}
+
+.weather-summary-img {
+    width: 120px;
+    height: 120px;
+}
+.weather-summary-info {
+    text-align: end;
+}
+
+.weather-conditions-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: space-between;
+    gap: 15px; /* Add gap between items */
+    color: #000000; /* Change text color to black for better readability */
+}
+.condition-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.condition-item span {
+    font-size: 32px; /* Increased from 30px to 32px */
+    color: #FFD700; /* Change condition icons to gold */
+}
+
+.forecast-items-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: scroll;
+    padding-bottom: 12px;
+    color: #000000; /* Change text color to black for better readability */
+}
+.forecast-items-container::-webkit-scrollbar {
+    height: 8px;
+}
+.forecast-items-container::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0, 0.1);
+    border-radius: 99px;
+}
+.forecast-items-container::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0, 0.15);
+    border-radius: 99px;
+}
+
+.forecast-item {
+    min-width: 70px;
+    background: rgba(0, 0, 0, 0.7); /* Change forecast item background to semi-transparent black */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    align-items: center;
+    border-radius: 12px;
+    transition: 0.3s background, 0.3s transform; /* Add transform transition */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+}
+.forecast-item:hover {
+    background: rgba(0, 0, 0, 0.8); /* Lighten background on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.forecast-item-img {
+    width: 35px;
+    height: 35px;
+}
+.forecast-item h5.forecast-item-date,
+.forecast-item h5.forecast-item-temp {
+    font-size: 18px; /* Increased from 16px to 18px */
+}
+
+/* END SECTION: WEATHER INFO */
+
+/* SECTION: MESSAGE */
+.section-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    margin-top: 25%;
+}
+.section-message img {
+    height: 180px;
+    width: fit-content;
+}
+/* end SECTION: MESSAGE */
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add new bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* MOVING CITIES SECTION */
+.moving-cities-container {
+    display: none; /* Hide the moving cities section */
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-family: 'Dancing Script', cursive; /* Change font-family to the new cursive font */
+    color: #FFD700; /* Change logo text color to gold */
+    font-size: 3.7rem; /* Increased from 3.5rem to 3.7rem */
+    text-align: center;
+    font-weight: 900; /* Make the font bolder */
+    z-index: 1; /* Ensure logo is above the background */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: transform 0.3s ease, color 0.3s ease; /* Add transition for smooth effects */
+    padding: 10px 20px; /* Add padding to create a box effect */
+    background: rgba(0, 0, 0, 0.7); /* Add background color */
+    border-radius: 12px; /* Add border radius */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+}
+
+.logo:active {
+    animation: rotate 1s linear; /* Apply the rotate animation on tap */
+}
+
+.logo:hover {
+    animation: bounce 2s infinite;
+    color: #ffffff; /* Change color on hover */
+}
+
+.unit-toggle-btn {
+    background: none;
+    border: none;
+    color: #1E90FF; /* Changed from #FFD700 */
+    font-size: 1.2rem; /* Increased from 1rem to 1.2rem */
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+    display: inline-block; /* Ensure toggle button is visible */
+}
+
+.unit-toggle-btn:hover {
+    color: #1C86EE; /* Adjusted hover color */
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-left: 10px;
+    display: inline-block; /* Ensure toggle button is visible */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1E90FF; /* Changed from #FFD700 */
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #000000; /* Change background color when checked to black */
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.unit-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: white;
+    font-weight: bold;
+}
+
+.unit-text:first-child {
+    left: 10px;
+}
+
+.unit-text:last-child {
+    right: 10px;
+}
+
+.weather-info .unit-toggle-btn,
+.weather-info .switch {
+    display: inline-block; /* Show toggle button when weather info is displayed */
+}
+
+.weather-info .geolocation-btn {
+    display: none; /* Hide geolocation button when weather info is displayed */
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    color: #1E90FF; /* Changed from #FFD700 */
+    text-align: right;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Temperature Themes */
+.theme-cold {
+    background: linear-gradient(to right, #00d2ff, #3a7bd5); /* Cool blue gradient */
+}
+
+.theme-mild {
+    background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Soft blue gradient */
+}
+
+.theme-warm {
+    background: linear-gradient(to right, #f2994a, #f2c94c); /* Warm orange-yellow gradient */
+}
+
+.theme-hot {
+    background: linear-gradient(to right, #ff512f, #dd2476); /* Hot red-purple gradient */
+}
+
+/* Cold Effect Animation */
+@keyframes coldEffect {
+    0% {
+        filter: blur(0px);
+    }
+    50% {
+        filter: blur(2px);
+    }
+    100% {
+        filter: blur(0px);
+    }
+}
+
+/* Warm Effect Animation */
+@keyframes warmEffect {
+    0% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+    100% {
+        filter: brightness(1);
+    }
+}
+
+/* Hot Effect Animation */
+@keyframes hotEffect {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(20deg);
+    }
+    100% {
+        filter: hue-rotate(0deg);
+    }
+}
+
+.material-symbols-outlined {
+    color: #1E90FF; /* Changed from #FFD700 */
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid #1E90FF;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
