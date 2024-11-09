@@ -22,17 +22,24 @@ Getting Started
 Prerequisites
 A modern web browser (Chrome, Firefox, Safari, Edge).
 Internet connection to fetch weather data from the OpenWeatherMap API.
+
 Installation
 1. Clone the repository:
 git clone https://github.com/lisan-5/Weather-website.git
-2. Navigate to the project directory:
+
+3. Navigate to the project directory:
 cd Weather-website
+
 3.Open index.html in your web browser to view the website
 Usage
 1.Enter a city name in the search input to get weather information.
+
 2.Click the search button or press Enter to fetch and display the weather data.
+
 3.Use the geolocation button to get weather information for your current location.
+
 4.Toggle between Celsius and Fahrenheit units using the switch.
+
 5.Change the language using the language selector dropdown.
 
 Contributing
